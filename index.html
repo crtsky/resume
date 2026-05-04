@@ -119,31 +119,39 @@
       <p>Резюме обновлено: май 2026</p>
     </footer>
   </div>
-
+  
   <script>
-
     document.addEventListener('DOMContentLoaded', () => {
       const skillsSection = document.querySelector('.skills');
-      if (!skillsSection) return;
+      if (skillsSection) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              skillsSection.querySelectorAll('.skill-progress').forEach(bar => {
+                bar.classList.add('animate');
+              });
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.25 });
+        observer.observe(skillsSection);
+      }
+      
+      (function() {
+        var img = new Image();
+        // Уникальный параметр ?v=... ломает кэш браузера → запрос уходит при каждом визите
+        img.src = 'https://track.coritsky.duckdns.org/pixel.gif?v=' + Date.now();
+        // Делаем пиксель невидимым и безопасным для вёрстки
+        img.width = 1;
+        img.height = 1;
+        img.style.display = 'none';
+        img.loading = 'lazy'; // Не блокирует загрузку страницы
+        // Добавляем в документ — браузер автоматически начинает загрузку
+        document.body.appendChild(img);
+      })();
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // Добавляем класс всем прогресс-барам при появлении секции
-            skillsSection.querySelectorAll('.skill-progress').forEach(bar => {
-              bar.classList.add('animate');
-            });
-            // Отключаем наблюдение после первого срабатывания (анимация проигрывается 1 раз)
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.25 }); // Срабатывает, когда 25% секции видно
-
-      observer.observe(skillsSection);
     });
   </script>
-  
-  <img src="https://track.coritsky.duckdns.org/p.png?v=1" width="1" height="1" alt="" style="display:none">
   
 </body>
 </html>
