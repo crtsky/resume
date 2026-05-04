@@ -121,64 +121,6 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-
-      // Логика анимации навыков
-      const skillsSection = document.querySelector('.skills');
-      if (skillsSection) {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              skillsSection.querySelectorAll('.skill-progress').forEach(bar => {
-                bar.classList.add('animate');
-              });
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.25 });
-        observer.observe(skillsSection);
-      }
-
-      // Логика уведомления в Gotify
-      const sendToGotify = () => {
-        // НАСТРОЙКИ
-        const GOTIFY_URL = 'https://externalmessage.coritsky.duckdns.org/message';
-        const TOKEN = 'AxZIz7uzFOZCj7W';
-
-        const payload = {
-          title: "Произошёл росмотр резюме",
-          message: `Кто-то открыл страницу. \nUser-Agent: ${navigator.userAgent.substring(0, 50)}...`,
-          priority: 2, // 0-10
-          extras: {
-            "client::notification": {
-              "click": { "url": "https://crtsky.github.io/resume/" }
-            }
-          }
-        };
-
-        // Отправляем запрос
-        fetch(GOTIFY_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Gotify-Key': TOKEN
-          },
-          body: JSON.stringify(payload),
-          keepalive: true // Позволяет запросу завершиться, даже если пользователь сразу закроет вкладку
-        })
-        .then(response => {
-          if (!response.ok) console.warn('Gotify error:', response.status);
-        })
-        .catch(err => console.error('Gotify fetch failed:', err));
-      };
-
-      // Запускаем уведомление с небольшой задержкой, чтобы не блокировать рендер
-      setTimeout(sendToGotify, 1000);
-    });
-  </script>
-
-<!--
-  <script>
 
     document.addEventListener('DOMContentLoaded', () => {
       const skillsSection = document.querySelector('.skills');
@@ -200,7 +142,8 @@
       observer.observe(skillsSection);
     });
   </script>
--->
-
+  
+  <img src="https://track.coritsky.duckdns.org/p.png?v=1" width="1" height="1" alt="" style="display:none">
+  
 </body>
 </html>
