@@ -1,0 +1,222 @@
+:root {
+  --bg-gradient: linear-gradient(135deg, #f0abfc 0%, #a78bfa 50%, #3b82f6 100%);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --radius: 20px;
+  --max-width: 920px;
+  --spacing: 1.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-gradient: linear-gradient(135deg, #701a75 0%, #4c1d95 50%, #1e3a8a 100%);
+    --glass-bg: rgba(15, 23, 42, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent: #818cf8;
+    --accent-hover: #6366f1;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.container { max-width: var(--max-width); margin: 0 auto; }
+
+/* Glass Panels */
+.card, .footer {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius);
+  padding: var(--spacing);
+  margin-bottom: 1.5rem;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+}
+
+@media (hover: hover) {
+  .card:hover, .footer:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/*
+.card, .footer {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius);
+  padding: var(--spacing);
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover, .footer:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); }
+*/
+
+.pdf-btn {
+  margin-top: 1.2rem;
+  padding: 0.65rem 1.3rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+@media (hover: hover) {
+  .pdf-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  }
+}
+.pdf-btn:active { transform: translateY(0) scale(0.98); }
+
+/* Header */
+.header { text-align: center; padding: 2rem var(--spacing); }
+.header h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 0.3rem; }
+.subtitle { font-size: 1.15rem; color: var(--accent); margin-bottom: 1rem; font-weight: 500; }
+.contacts { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+.contacts a { color: var(--accent); text-decoration: none; font-weight: 500; border-bottom: 1px dashed transparent; transition: all 0.2s; }
+.contacts a:hover { border-bottom-color: var(--accent-hover); color: var(--accent-hover); }
+
+/* Sections */
+h2 { font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent); display: inline-block; border-bottom: 2px solid var(--accent); padding-bottom: 0.25rem; }
+.meta { color: var(--text-muted); font-size: 0.9rem; margin: 0.25rem 0 0.75rem; }
+ul { margin-left: 1.4rem; margin-top: 0.5rem; }
+ul li { margin-bottom: 0.4rem; }
+.job, .edu { margin-bottom: 1.5rem; }
+.job:last-child, .edu:last-child { margin-bottom: 0; }
+.job h3, .edu h3 { font-size: 1.15rem; margin-bottom: 0.2rem; }
+
+/* Skills with Scroll-Triggered Progress Bars */
+.skills-grid { display: grid; gap: 1.2rem; }
+@media (min-width: 768px) { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
+.skill-info { display: flex; justify-content: space-between; margin-bottom: 0.4rem; font-weight: 500; font-size: 0.95rem; }
+.skill-bar {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.skill-progress {
+  height: 100%;
+  width: 0%; /* Стартовая позиция */
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: width 3.5s cubic-bezier(0.25, 1, 0.5, 1); /* Плавное заполнение */
+}
+/* Класс добавляется JS при появлении в viewport */
+.skill-progress.animate {
+  width: var(--progress);
+}
+
+@media (prefers-color-scheme: dark) {
+  .skill-bar { background: rgba(255, 255, 255, 0.1); }
+}
+
+/* Footer */
+.footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 1.5rem var(--spacing); margin-bottom: 0; }
+
+/* Responsive */
+@media (max-width: 640px) {
+  body { padding: 1rem 0.5rem; }
+  .header h1 { font-size: 1.9rem; }
+  .contacts { flex-direction: column; align-items: center; gap: 0.6rem; }
+}
+
+/* Print */
+
+/*@media print {
+  body { background: #fff; padding: 0; color: #000; }
+  .card, .footer { background: #fff; backdrop-filter: none; border: 1px solid #ccc; box-shadow: none; border-radius: 8px; page-break-inside: avoid; }
+  .contacts a { color: #000; text-decoration: underline; }
+  h2 { color: #000; border-bottom-color: #000; }
+  .skill-bar { background: #e5e7eb; border: none; }
+  .skill-progress {
+    width: var(--progress) !important;
+    animation: none;
+    transition: none;
+    background: #111827;
+  }
+}
+*/
+
+/* ===== ПЕЧАТЬ & PDF ===== */
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    background: #fff !important;
+    padding: 0 !important;
+    color: #000 !important;
+    font-size: 11pt;
+  }
+
+  /* Убираем стекло, оставляем чистые карточки */
+  .card, .footer {
+    background: #fff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+    border-radius: 10px !important;
+    padding: 1rem !important;
+    margin-bottom: 0.8rem !important;
+    page-break-inside: avoid;
+  }
+
+  /* Скрываем кнопку печати в самом PDF */
+  .pdf-btn { display: none !important; }
+
+  /* Типографика и ссылки */
+  h2 { color: #000 !important; border-bottom-color: #000 !important; }
+  .subtitle, .contacts a { color: #000 !important; }
+  .contacts a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+    text-decoration: none;
+  }
+
+  /* Шкалы навыков: отключаем анимацию, форсируем ширину */
+  .skills-grid { grid-template-columns: 1fr !important; gap: 0.7rem !important; }
+  .skill-bar { background: #e2e8f0 !important; border: none !important; height: 8px !important; }
+  .skill-progress {
+    width: var(--progress) !important;
+    background: #1e293b !important;
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+  }
+  .skill-info { margin-bottom: 0.25rem !important; font-size: 10pt !important; }
+
+  /* Метаданные и списки */
+  .meta { color: #444 !important; font-size: 9.5pt !important; }
+  ul { margin-left: 1rem !important; }
+  ul li { margin-bottom: 0.2rem !important; }
+}
