@@ -136,22 +136,8 @@
         }, { threshold: 0.25 });
         observer.observe(skillsSection);
       }
-      
-      (function() {
-        var img = new Image();
-        // Уникальный параметр ?v=... ломает кэш браузера → запрос уходит при каждом визите
-        img.src = 'https://track.coritsky.duckdns.org/pixel.gif?v=' + Date.now();
-        // Делаем пиксель невидимым и безопасным для вёрстки
-        img.width = 1;
-        img.height = 1;
-        img.style.display = 'none';
-        img.loading = 'lazy'; // Не блокирует загрузку страницы
-        // Добавляем в документ — браузер автоматически начинает загрузку
-        document.body.appendChild(img);
-      })();
-
     });
   </script>
-  
+  <img src="https://track.coritsky.duckdns.org/pixel.gif" width="1" height="1" style="display:none" alt="">
 </body>
 </html>
